@@ -1,0 +1,428 @@
+#:import Factory kivy.factory.Factory
+
+WindowManager:
+    StartScreen:
+    MainWindow:
+    SalesScreen:
+    StockScreen:
+    ViewTables:
+    Exit:
+    About:
+    Cameras:
+    Register:
+    PARA:
+    ARTG:
+    SUMMA:
+    
+<StartScreen>:
+    name:"Screen Saver"
+    Image:
+        source: 'OPEN.jpg'
+        allow_stretch: True
+        keep_ratio: False
+    FloatLayout:
+        Button:
+            background_color: 0,0,0,0
+            size_hint: 0.1,0.1
+            pos_hint: {"x":.45, "y":.41}
+            on_press:
+                app.root.current = "main"
+                root.manager.transition.direction = "left"
+        AsyncImage: 
+            source: 'https://media.giphy.com/media/l1fDKnffMrl6TUQRVS/giphy-downsized.gif'
+            allow_stretch: True
+            size_hint: 0.2,0.2
+            pos_hint: {"x":.40, "y":.37}
+            anim_delay: 0
+            mipmap: True
+
+
+<About>:
+    name: "About"
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: '41641.jpg'
+    Button:
+        background_normal: 'ho.png'
+        background_down: 'ho.png'
+        size_hint: 0.1,0.11
+        pos_hint: {"x":.9, "y":.9} 
+        on_release:
+            app.root.current = "main"
+            root.manager.transition.direction = "left"
+
+
+<MainWindow>:
+    name: "main"
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: '2nds.jpg'
+    Button:
+        text: "BOT"
+        background_color: 0,0,0,0.7
+        color: 1,1,0.6,1
+        size_hint: 0.15,0.1
+        pos_hint: {"x":0, "y":0} 
+        on_release:
+            root.botpopup()
+ 
+    Button:
+        text: "View Tables"
+        background_color: 0,0,0,0.7
+        color: 1,1,0.6,1
+        size_hint: 0.15,0.1
+        pos_hint: {"x":.45, "y":0} 
+        on_release:
+            app.root.current = "viewtable"
+            root.manager.transition.direction = "left"
+            
+    FloatLayout:
+    
+        Spinner:
+            size_hint: 0.15,0.1
+            background_color: 0,0,0,0.7
+            color: 1,1,0.6,1
+            pos_hint: {"x":.30, "y":0}
+            text: 'Download Excel'
+            values: 'Stock Excel', 'Sales Excel'
+            option_cls:Factory.get("MySpinnerOption")
+            on_text: 
+                root.mainman(self.text)
+                self.text = 'Download Excel'
+        Spinner:
+            size_hint: 0.15,0.1
+            pos_hint: {"x":.15, "y":0}
+            text: 'Update'
+            background_color: 0,0,0,0.7
+            color: 1,1,0.6,1
+            values: 'Update Sales', 'Update Stocks'
+            option_cls:Factory.get("MySpinnerOption")
+            on_text:
+                root.manager.transition.direction = "left"
+                root.manager.changescreen(self.text)
+                self.text = 'Update'
+    
+        Spinner:
+            size_hint: 0.15,0.1
+            background_color: 0,0,0,0.7
+            color: 1,1,0.6,1
+            pos_hint: {"x":.85, "y": .9}
+            text: 'My Account'
+            values: 'Screen Saver', 'Online', 'About','EXIT'
+            option_cls:Factory.get("MySpinnerOption")
+            on_text:
+                root.manager.transition.direction = "right"
+                root.manager.changescreen(self.text)
+                self.text = '|||'
+                     
+        Spinner:
+            size_hint: 0.15,0.1
+            background_color: 0,0,0,0.7
+            color: 1,1,0.6,1
+            pos_hint: {"x":.60, "y":0} 
+            text: 'CAM'
+            values: 'Cameras', 'Register'
+            option_cls:Factory.get("MySpinnerOption")
+            on_text:
+                root.manager.transition.direction = "left"
+                root.manager.changescreen(self.text)
+                self.text = 'CAM'
+        Spinner:
+            size_hint: 0.15,0.1
+            background_color: 0,0,0,0.7
+            color: 1,1,0.6,1
+            pos_hint: {"x":.75, "y":0} 
+            text: 'NLP'
+            values: 'Article Generator', 'Paraphraser', 'Summarizer'
+            option_cls:Factory.get("MySpinnerOption")
+            on_text:
+                root.manager.transition.direction = "left"
+                root.manager.changescreen(self.text)
+                self.text = 'NLP'
+                
+                
+<MySpinnerOption@SpinnerOption>:
+    background_color: 0,0,0,0.7
+    color: 1,1,0.6,1
+    
+<Exit>:
+    name: "EXIT"
+
+<SUMMA>:
+    name: "Summarizer"
+    BoxLayout:
+        TextInput:
+            id: inppp
+        TextInput:
+            id: outtt 
+    FloatLayout:            
+        Button:
+            text: 'Begin'
+            size_hint: 0.1,0.07
+            pos_hint: {"x":0.15, "y":0} 
+            on_release: root.summa()
+        Button:
+            text: "Go Back"
+            size_hint: 0.1,0.07
+            pos_hint: {"x":0, "y":0} 
+            on_release:
+                app.root.current = "main"
+                root.manager.transition.direction = "right"
+
+<ARTG>:
+    name: "Article Generator"
+    BoxLayout:
+        TextInput:
+            id: inp
+        TextInput:
+            id: out 
+    FloatLayout:            
+        Button:
+            text: 'Begin'
+            size_hint: 0.1,0.07
+            pos_hint: {"x":0.15, "y":0} 
+            on_release: root.Art()
+        Button:
+            text: "Go Back"
+            size_hint: 0.1,0.07
+            pos_hint: {"x":0, "y":0} 
+            on_release:
+                app.root.current = "main"
+                root.manager.transition.direction = "right"
+<PARA>:
+    name: "Paraphraser"
+    BoxLayout:
+        TextInput:
+            id: inpp
+            on_text: root.para() 
+        TextInput:
+            id: outt
+    FloatLayout:           
+        Button:
+            text: "Go Back"
+            size_hint: 0.1,0.07
+            pos_hint: {"x":0, "y":0} 
+            on_release:
+                app.root.current = "main"
+                root.manager.transition.direction = "right"
+<Register>:
+    name: "Register"
+    BoxLayout:
+        Label:
+            id:fff  
+            text:"" 
+            
+        Button:
+            text: 'Load'
+            on_release: root.show_load()
+        Button:
+            text: 'Record'
+            on_release: root.record()
+            
+        Button:
+            text: "Go Back"
+            on_release:
+                app.root.current = "main"
+                root.manager.transition.direction = "right"
+    
+<Cameras>:
+    name: "Cameras"
+    
+    BoxLayout:
+        Image:
+            id: img1
+            source: "bl.jpg"
+        Image:
+            id: img2
+            source: "bl.jpg"
+    FloatLayout:
+        Label:
+            id:ff      
+        TextInput:
+            id: url
+            multinline:False
+            size_hint: 0.2,0.07
+            pos_hint: {"x":0.15, "y":0} 
+        TextInput:
+            id: url2
+            multinline:False 
+            size_hint: 0.2,0.07
+            pos_hint: {"x":.4, "y":0} 
+        Button:
+            text: "Start Cameras"
+            background_color: 255,255,255,0.5
+            color: 1,1,0.6,1
+            size_hint: 0.15,0.07
+            pos_hint: {"x":.85, "y":0} 
+            on_release:
+                root.build()          
+        Button:
+            text: "Back"
+            font_size:"20sp"
+            background_color: 255,255,255,0.5
+            color: 1,1,0.6,1
+            size_hint: 0.1,0.07
+            pos_hint: {"x":0, "y":0} 
+            on_release:
+                app.root.current = "main"
+                root.manager.transition.direction = "right"
+        Button:
+            text: "Stop"
+            font_size:"20sp"
+            background_color: 255,255,255,0.5
+            color: 1,1,0.6,1
+            size_hint: 0.1,0.07
+            pos_hint: {"x":0.70, "y":0} 
+            on_release:
+                root.stopppp()               
+                    
+
+<ViewTables>:
+    name: "viewtable"
+    GridLayout:
+        cols:1
+
+        Button:
+            text: "Stock Table"
+            on_press: root.NUMPAD(self)
+        Button:
+            text: "Sales Table"
+            on_press: root.NUMPAD(self) 
+        Button:
+            text: "Go Back"
+            on_release:
+                app.root.current = "main"
+                root.manager.transition.direction = "right"
+            
+            
+<StockScreen>:
+    name: "Update Stocks"
+    pc: pc
+    pn: pn
+    pw: pw
+    pl: pl
+    pq: pq
+    GridLayout:
+        cols:1
+        GridLayout:
+            cols:2
+
+            Label:
+                text: "Product Category: "
+
+            TextInput:
+                id: pc
+                multinline:False
+
+            Label:
+                text: "Product Name: "
+
+            TextInput:
+                id: pn
+                multiline:False
+            
+            Label:
+                text: "Product Width: "
+
+            TextInput:
+                id: pw
+                multinline:False
+                input_filter: 'float'
+
+            Label:
+                text: "Product Length: "
+
+            TextInput:
+                id: pl
+                multiline:False
+                input_filter: 'float'
+                
+            Label:
+                text: "Product Quantity: "
+
+            TextInput:
+                id: pq
+                multiline:False
+                input_filter: 'float'
+
+
+        Button:
+            text:"Submit"
+            on_press: root.Stocks()
+        Button:
+            text: "Go Back"
+            on_release:
+                app.root.current = "main"
+                root.manager.transition.direction = "right"
+            
+<SalesScreen>:
+    name: "Update Sales"
+    pc: pc
+    pn: pn
+    pw: pw
+    pl: pl
+    pst: pst
+    pqs: pqs
+    GridLayout:
+        cols:1
+
+        GridLayout:
+            cols:2
+
+            Label:
+                text: "Product Category: "
+
+            TextInput:
+                id: pc
+                multinline:False
+
+            Label:
+                text: "Product Name: "
+
+            TextInput:
+                id: pn
+                multiline:False
+            
+            Label:
+                text: "Product Width: "
+
+            TextInput:
+                id: pw
+                multinline:False
+                input_filter: 'float'
+
+            Label:
+                text: "Product Length: "
+
+            TextInput:
+                id: pl
+                multiline:False
+                input_filter: 'float'
+                
+            Label:
+                text: "Product Sold To: "
+
+            TextInput:
+                id: pst
+                multiline:False
+
+            Label:
+                text: "Product Quantity Sold : "
+
+            TextInput:
+                id: pqs
+                multiline:False
+                input_filter: 'float'
+                
+        Button:
+            text:"Submit"
+            on_press: root.Sales()
+        Button:
+            text: "Go Back"
+            on_release:
+                app.root.current = "main"
+                root.manager.transition.direction = "right"
