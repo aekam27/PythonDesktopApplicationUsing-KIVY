@@ -96,8 +96,8 @@ import multiprocessing
 from paraphrase_googletranslate import Paraphraser
 
 r = sr.Recognizer()
-client = MongoClient("mongodb+srv://Aekam:aekam@cluster0.vg8zq.mongodb.net/Darpan?retryWrites=true&w=majority")
-db = client["Darpan"]
+client = MongoClient("#")
+db = client["#"]
 rs = RiveScript()
 rs.load_directory("Brain")
 rs.sort_replies()   
